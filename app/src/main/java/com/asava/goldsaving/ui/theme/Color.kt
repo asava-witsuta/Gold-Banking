@@ -12,3 +12,5 @@ val Pink40 = Color(0xFF7D5260)
 
 val TextColor = Color(0xFF88785E)
 val BtnColor = Color(0xFFF5E1AB)
+
+val Black2 = Color(0xFF514838)

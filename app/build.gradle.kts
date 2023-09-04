@@ -2,11 +2,12 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
+    id("com.google.devtools.ksp") version "1.9.0-1.0.11"
 }
 
 android {
     namespace = "com.asava.goldsaving"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.asava.goldsaving"
@@ -31,17 +32,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
         resources {
@@ -49,6 +50,9 @@ android {
         }
     }
 }
+
+// Run ktlint before build application.
+tasks.getByPath("preBuild").dependsOn("ktlintFormat")
 
 ktlint {
     android.set(true)
@@ -78,4 +82,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    implementation("io.github.raamcosta.compose-destinations:core:1.9.52")
+    ksp("io.github.raamcosta.compose-destinations:ksp:1.9.52")
 }
